@@ -1,0 +1,27 @@
+# Free Pascal & Lazarus compiler outputs
+lib/
+*/lib/
+**/lib/
+*.ppu
+*.o
+*.obj
+*.compiled
+*.a
+*.or
+
+# Lazarus IDE local session state
+*.lps
+*.bak
+*.~*
+
+# Executables & Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Runtime logs
+*.log
+
+# Generated sample projects from Wizard tests
+ProjetosGerados/

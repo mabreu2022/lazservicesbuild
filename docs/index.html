@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fábrica de Serviços Cross-Platform | Documentação Técnica</title>
+  <meta name="description" content="Documentação técnica completa da Fábrica de Serviços Windows e Linux no Lazarus (Free Pascal). Gerador visual tipo Wizard para serviços de alta disponibilidade.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header class="top-header">
+    <div class="brand">
+      <div class="brand-icon">⚙</div>
+      <div class="brand-text">
+        <h1>Fábrica de Serviços</h1>
+        <span>Lazarus & Free Pascal • Windows & Linux</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <span class="badge-tag">v2.0 Produção</span>
+      <button class="btn-icon" id="themeToggleBtn" title="Alternar tema claro/escuro" aria-label="Alternar tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <button class="btn-icon mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu de Navegação">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout Container -->
+  <div class="layout-container">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="sidebarSearch" placeholder="Pesquisar documentação..." aria-label="Pesquisar">
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Introdução</div>
+        <a href="#overview" class="nav-link active">Visão Geral & Arquitetura</a>
+        <a href="#quickstart" class="nav-link">Guia do Wizard (5 Etapas)</a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Arquitetura de Tarefas</div>
+        <a href="#archetypes" class="nav-link">Os 5 Arquétipos de Produção</a>
+        <a href="#archetype-db" class="nav-link">1. Pooling de Banco de Dados</a>
+        <a href="#archetype-dir" class="nav-link">2. Monitor de Pastas</a>
+        <a href="#archetype-http" class="nav-link">3. API / Microserviço</a>
+        <a href="#archetype-sched" class="nav-link">4. Agendador Diário</a>
+        <a href="#archetype-queue" class="nav-link">5. Fila de Tarefas</a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Recursos de Infraestrutura</div>
+        <a href="#config-mgr" class="nav-link">Configuração (.ini) & SIGHUP</a>
+        <a href="#dependencies" class="nav-link">Orquestração de Dependências</a>
+        <a href="#scripts-uac" class="nav-link">Scripts com Auto-Elevação UAC</a>
+        <a href="#debug-mode" class="nav-link">Modo Dual (/debug) & HeapTrc</a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Demos & WSL</div>
+        <a href="#demos-section" class="nav-link">Os 5 Demos Compilados</a>
+        <a href="#wsl-section" class="nav-link">WSL Ubuntu na Unidade D:</a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Referência Técnica</div>
+        <a href="#file-ref" class="nav-link">Estrutura de Arquivos</a>
+        <a href="#faq" class="nav-link">Perguntas Frequentes (FAQ)</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-wrapper">
+
+      <!-- Hero Banner -->
+      <section class="hero-banner">
+        <h1 class="hero-title">Fábrica de Serviços Cross-Platform</h1>
+        <p class="hero-lead">
+          Um gerador de projetos visual em Lazarus (Free Pascal) no formato de <strong>Wizard de Produção com abas ocultas</strong>, gerando serviços de missão crítica para <strong>Windows (SCM)</strong> e <strong>Linux (Systemd)</strong> com zero overhead gráfico.
+        </p>
+
+        <div class="hero-features-grid">
+          <div class="hero-feature-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Modo Dual:</strong> Invisível + Console</span>
+          </div>
+          <div class="hero-feature-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Auto-Elevação UAC:</strong> Scripts .bat</span>
+          </div>
+          <div class="hero-feature-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Hot-Reload:</strong> Sinal SIGHUP Linux</span>
+          </div>
+          <div class="hero-feature-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Binário Puro:</strong> Zero LCL (~240 KB)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 1: Visão Geral -->
+      <section id="overview" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Fundamentos</span>
+          <h2 class="section-title">Visão Geral & Filosofia de Arquitetura</h2>
+          <p class="section-desc">Como a fábrica desacopla a complexidade de sistemas operacionais das regras de negócio.</p>
+        </div>
+
+        <p>
+          Tradicionalmente, desenvolver serviços corporativos no Lazarus ou Delphi exigia lidar com particularidades intrincadas da API Win32 (como <code>StartServiceCtrlDispatcher</code>, <code>RegisterServiceCtrlHandler</code> e chamadas SCM) e com a estrutura do daemon Linux (sinais POSIX, <code>systemd</code> units e <code>journalctl</code>).
+        </p>
+        <p>
+          A <strong>Fábrica de Serviços</strong> resolve esse desafio através de um assistente interativo que gera uma arquitetura de 3 camadas estritamente desacoplada:
+        </p>
+
+        <!-- Diagrama Arquitetural -->
+        <div class="diagram-box">
+          <div class="flow-step-row">
+            <div class="flow-node highlight">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+              <span>Wizard LCL (FabricaServicos.exe)</span>
+            </div>
+            <div class="flow-arrow">➔ GERA ➔</div>
+            <div class="flow-node">
+              <span>Projeto de Serviço Puro (FCL/RTL)</span>
+            </div>
+          </div>
+          <div class="flow-step-row" style="margin-top: 10px;">
+            <div class="flow-node">
+              <span>Camada 1: uServiceCore.pas (SCM / POSIX / Debug)</span>
+            </div>
+            <div class="flow-arrow">⬍</div>
+            <div class="flow-node highlight">
+              <span>Camada 2: uWorker.pas (Thread de Negócio)</span>
+            </div>
+            <div class="flow-arrow">⬍</div>
+            <div class="flow-node">
+              <span>Camada 3: uConfig.pas (Singleton .ini)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-icon indigo">🪟</div>
+            <h3 class="card-title">Windows SCM Nativo</h3>
+            <p class="card-body">
+              Integração direta com o Service Control Manager sem bibliotecas externas. Suporta auto-início, atraso de início e reinício automático em falha.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon emerald">🐧</div>
+            <h3 class="card-title">Linux Systemd Nativo</h3>
+            <p class="card-body">
+              Unidade com <code>Type=simple</code>, <code>Restart=always</code> e captura direta de stdout/stderr pelo <code>journalctl</code>, além de captura do sinal <code>SIGHUP</code>.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon blue">⚡</div>
+            <h3 class="card-title">Desacoplamento Visual Total</h3>
+            <p class="card-body">
+              O executável final gerado não inclui LCL nem DLLs gráficas. Tamanho do executável compilado de aproximadamente <strong>240 KB</strong> com início em milissegundos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: Guia do Wizard -->
+      <section id="quickstart" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Passo a Passo</span>
+          <h2 class="section-title">O Wizard em 5 Etapas de Produção</h2>
+          <p class="section-desc">Fluxo com validação progressiva e garantia de consistência.</p>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">1</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <span>Etapa 1: Identificação & Diretórios</span>
+              <span class="badge-tag">Validação Pascal</span>
+            </div>
+            <p>
+              Define o <strong>Nome do Serviço</strong> (obrigatoriamente um identificador válido sem espaços, ex: <code>SyncVendasSvc</code>), o <strong>Nome Amigável de Exibição</strong>, a <strong>Descrição</strong> e a <strong>Plataforma Alvo</strong> (Híbrido [Recomendado], Apenas Windows ou Apenas Linux).
+            </p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">2</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <span>Etapa 2: Arquétipo de Tarefa</span>
+              <span class="badge-tag">Regra de Negócio</span>
+            </div>
+            <p>
+              Escolha o que o serviço executará. O Wizard injeta o esqueleto completo da thread de trabalho de acordo com o arquétipo escolhido (Pooling de BD, Monitor de Pastas, API HTTP, Agendador ou Fila).
+            </p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">3</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <span>Etapa 3: Frequência, Timer e Parâmetros</span>
+              <span class="badge-tag">Configuração .ini</span>
+            </div>
+            <p>
+              Configure o intervalo de execução (em segundos, milissegundos ou minutos), ative a unit Singleton <code>uConfig.pas</code> para leitura de <code>.ini</code> e habilite o modo interativo <code>/debug</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">4</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <span>Etapa 4: Sistema Operacional & Infraestrutura</span>
+              <span class="badge-tag">SCM & Systemd</span>
+            </div>
+            <p>
+              Defina o comportamento em caso de falha (<code>Restart=always</code>), usuário de execução Linux (ex: <code>root</code> ou <code>www-data</code>), dependências de inicialização (rede e bancos de dados) e ative a compilação com <strong>HeapTrc (-gh)</strong> para auditoria de memória.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">5</div>
+          <div class="step-content">
+            <div class="step-heading">
+              <span>Etapa 5: Resumo, Pré-Visualização e Geração</span>
+              <span class="badge-tag">Entrega Completa</span>
+            </div>
+            <p>
+              Exibe um resumo completo das opções, permite pré-visualizar qualquer arquivo fonte gerado em tempo real com realce e gera o projeto instantaneamente, abrindo a pasta no Windows Explorer.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: Arquétipos -->
+      <section id="archetypes" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Especialização</span>
+          <h2 class="section-title">Os 5 Arquétipos de Produção</h2>
+          <p class="section-desc">Modelos arquiteturais prontos que resolvem problemas reais de automação empresarial.</p>
+        </div>
+
+        <!-- Arquétipo 1 -->
+        <div id="archetype-db" style="margin-bottom: 40px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent-blue);">1. Consulta / Pooling de Banco de Dados</h3>
+          <p>
+            Projetado para serviços que verificam periodicamente tabelas de filas ou tarefas em bancos como <strong>Firebird, PostgreSQL ou MySQL</strong>. Inclui controle de reconexão e espera responsiva via <code>TEvent</code>.
+          </p>
+
+          <div class="code-window">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+              <span class="code-filename">uWorker.pas — Trecho do Arquétipo de Banco de Dados</span>
+              <button class="btn-copy">Copiar</button>
+            </div>
+            <pre><code>procedure TServiceWorkerThread.Execute;
+begin
+  TServiceCore.LogMessage('INFO', 'Thread de trabalho iniciada. Intervalo: ' + IntToStr(FIntervalMs) + ' ms');
+  while not Terminated do
+  begin
+    try
+      ConnectAndProcessQueries; // Executa queries no banco
+    except
+      on E: Exception do
+        TServiceCore.LogMessage('ERROR', '[DB-POOL] Erro na consulta de banco: ' + E.Message);
+    end;
+
+    // Aguarda o intervalo de forma responsiva (encerra imediatamente se chamado Stop)
+    if FTermEvent.WaitFor(FIntervalMs) = wrSignaled then
+      Break;
+  end;
+end;</code></pre>
+          </div>
+        </div>
+
+        <!-- Arquétipo 2 -->
+        <div id="archetype-dir" style="margin-bottom: 40px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent-emerald);">2. Monitor de Diretório / Pastas</h3>
+          <p>
+            Monitora pastas de entrada (<em>inbox</em>) com <strong>teste de arquivo bloqueado</strong> (<code>FileOpen</code> em modo exclusivo) para garantir que um arquivo não seja lido antes de terminar a transferência.
+          </p>
+
+          <div class="code-window">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+              <span class="code-filename">uWorker.pas — Teste de Bloqueio de Arquivo</span>
+              <button class="btn-copy">Copiar</button>
+            </div>
+            <pre><code>function IsFileLocked(const AFileName: string): Boolean;
+var
+  FHandle: THandle;
+begin
+  // Testa se o arquivo ainda está sendo gravado ou copiado
+  FHandle := FileOpen(AFileName, fmOpenRead or fmShareExclusive);
+  if FHandle = THandle(-1) then
+    Result := True // Arquivo bloqueado
+  else
+  begin
+    FileClose(FHandle);
+    Result := False; // Arquivo livre para processar
+  end;
+end;</code></pre>
+          </div>
+        </div>
+
+        <!-- Arquétipo 3 -->
+        <div id="archetype-http" style="margin-bottom: 40px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent-purple);">3. API / WebService / Microserviço</h3>
+          <p>
+            Esqueleto para servidores HTTP, WebSockets ou RPC (ideal para integração com frameworks como <em>Horse, Brook, fphttpapp ou mORMot</em>). Inicia a escuta no <code>Start</code> e desfaz as conexões no <code>Stop</code>.
+          </p>
+        </div>
+
+        <!-- Arquétipo 4 -->
+        <div id="archetype-sched" style="margin-bottom: 40px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent-amber);">4. Agendador Diário / Backup</h3>
+          <p>
+            Garante a execução exata uma vez ao dia no horário configurado no <code>.ini</code> (ex: <code>02:00:00</code>), com cálculo de virada de dia e prevenção contra execuções repetidas.
+          </p>
+        </div>
+
+        <!-- Arquétipo 5 -->
+        <div id="archetype-queue" style="margin-bottom: 40px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent-rose);">5. Loop Contínuo com Fila de Tarefas</h3>
+          <p>
+            Consumo de mensagens ou filas sincronizadas via <code>TEvent</code>, operando com <strong>zero busy-wait</strong> e resposta imediata sem consumo ocioso de CPU.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 4: Configuração .ini -->
+      <section id="config-mgr" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Parametrização</span>
+          <h2 class="section-title">Gerenciador de Configuração (.ini) & SIGHUP</h2>
+          <p class="section-desc">Padrão Singleton thread-safe com suporte a Hot-Reload no Linux.</p>
+        </div>
+
+        <p>
+          O serviço gerencia suas configurações através de um arquivo <code>.ini</code> salvo no mesmo diretório do executável. O componente <code>TAppConfig</code> é thread-safe e protegido por <code>TCriticalSection</code>.
+        </p>
+
+        <div class="callout info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <div>
+            <strong>Recarregamento Dinâmico no Linux (Hot-Reload):</strong><br>
+            Ao enviar o sinal <code>SIGHUP</code> para o daemon (ex: <code>pkill -HUP meuservico</code>), o método <code>ReloadConfiguration</code> relê os valores do <code>.ini</code> e atualiza a frequência das threads sem necessidade de reiniciar o processo!
+          </div>
+        </div>
+
+        <div class="code-window">
+          <div class="code-header">
+            <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+            <span class="code-filename">meuservico.ini — Arquivo Gerado Automaticamente</span>
+            <button class="btn-copy">Copiar</button>
+          </div>
+          <pre><code>[SERVICE]
+PollingIntervalMs=5000
+LogLevel=INFO
+
+[DATABASE]
+Host=127.0.0.1
+Port=3050
+Database=meu_banco.fdb
+User=SYSDBA
+Password=masterkey</code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 5: Orquestração de Dependências -->
+      <section id="dependencies" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Orquestração</span>
+          <h2 class="section-title">Orquestração de Dependências de Inicialização</h2>
+          <p class="section-desc">Garantindo que os serviços dependentes subam na ordem correta.</p>
+        </div>
+
+        <div class="tab-container">
+          <div class="tab-nav">
+            <button class="tab-btn active">Windows (SCM)</button>
+            <button class="tab-btn">Linux (Systemd)</button>
+          </div>
+
+          <div class="tab-pane active">
+            <p>No Windows, as dependências são registradas no <em>Service Control Manager</em> com o parâmetro <code>depend=</code> do utilitário <code>sc.exe</code>:</p>
+            <div class="code-window">
+              <div class="code-header">
+                <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+                <span class="code-filename">Comando sc.exe gerado no instalar.bat</span>
+                <button class="btn-copy">Copiar</button>
+              </div>
+              <pre><code>sc.exe create "SyncVendasSvc" binPath= "\"C:\Servicos\SyncVendasSvc.exe\"" start= auto DisplayName= "Serviço de Vendas" depend= Tcpip/LanmanWorkstation/FirebirdServerDefaultInstance</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-pane">
+            <p>No Linux, as dependências são especificadas na seção <code>[Unit]</code> do arquivo de serviço do <code>systemd</code>:</p>
+            <div class="code-window">
+              <div class="code-header">
+                <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+                <span class="code-filename">meuservico.service</span>
+                <button class="btn-copy">Copiar</button>
+              </div>
+              <pre><code>[Unit]
+Description=Serviço de Sincronização de Vendas
+After=network.target network-online.target firebird.service
+Wants=network-online.target</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: Scripts UAC -->
+      <section id="scripts-uac" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">DevOps & Implantação</span>
+          <h2 class="section-title">Scripts de Instalação com Auto-Elevação UAC</h2>
+          <p class="section-desc">Instalação descomplicada sem necessidade de abrir prompts manuais como Administrador.</p>
+        </div>
+
+        <p>
+          O arquivo <code>instalar.bat</code> gerado inclui uma rotina inteligente de detecção e auto-elevação de privilégios. Se você der um duplo-clique comum no arquivo, ele invoca a janela do <strong>UAC do Windows</strong> automaticamente:
+        </p>
+
+        <div class="code-window">
+          <div class="code-header">
+            <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+            <span class="code-filename">instalar.bat — Rotina de Auto-Elevação UAC</span>
+            <button class="btn-copy">Copiar</button>
+          </div>
+          <pre><code>:: Auto-elevacao de Administrador (UAC)
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+    echo Solicitando privilegios de Administrador para registro do servico...
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit /b
+)</code></pre>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Script</th>
+                <th>Sistema</th>
+                <th>Finalidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>instalar.bat</code></td>
+                <td>Windows</td>
+                <td>Auto-elevação UAC, registro no SCM via <code>sc.exe</code>, descrição e início automático.</td>
+              </tr>
+              <tr>
+                <td><code>desinstalar.bat</code></td>
+                <td>Windows</td>
+                <td>Auto-elevação UAC, parada do processo e remoção do serviço do SCM.</td>
+              </tr>
+              <tr>
+                <td><code>instalar.sh</code></td>
+                <td>Linux</td>
+                <td>Valida root/sudo, copia para <code>/usr/local/bin</code>, registra no systemd e habilita no boot.</td>
+              </tr>
+              <tr>
+                <td><code>remover.sh</code></td>
+                <td>Linux</td>
+                <td>Para e desabilita o serviço, remove unit e recarrega o systemd.</td>
+              </tr>
+              <tr>
+                <td><code>status.sh</code></td>
+                <td>Linux</td>
+                <td>Atalho rápido para <code>systemctl status &lt;servico&gt;</code>.</td>
+              </tr>
+              <tr>
+                <td><code>ver_logs.sh</code></td>
+                <td>Linux</td>
+                <td>Monitoramento contínuo em tempo real via <code>journalctl -u &lt;servico&gt; -f -n 50</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 7: Modo Debug & Diagnósticos -->
+      <section id="debug-mode" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Depuração</span>
+          <h2 class="section-title">Modo Dual (/debug) & Diagnósticos com HeapTrc</h2>
+          <p class="section-desc">Depure o serviço diretamente no Lazarus sem precisar instalar e desinstalar a cada teste.</p>
+        </div>
+
+        <p>
+          Basta executar o executável gerado passando o argumento <code>/debug</code> (Windows) ou <code>-d</code> / <code>--debug</code> (Linux):
+        </p>
+
+        <div class="code-window">
+          <div class="code-header">
+            <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+            <span class="code-filename">Terminal — Saída Real no Modo Interativo</span>
+            <button class="btn-copy">Copiar</button>
+          </div>
+          <pre><code>C:\Servicos> SyncVendasSvc.exe /debug
+================================================================
+  Serviço de Sincronização de Vendas
+  Modo: Console Interativo de Debug (/debug)
+  Pressione Ctrl+C para encerrar limpo e com segurança
+================================================================
+
+[2026-10-15 08:16:26.837] [INFO] Iniciando modulo de trabalho (Worker)...
+[2026-10-15 08:16:26.837] [INFO] Servico executando no terminal interativo. Aguardando eventos...
+[2026-10-15 08:16:26.837] [INFO] Thread de trabalho iniciada. Intervalo: 3000 ms
+[2026-10-15 08:16:26.838] [DEBUG] [DB-POOL] Verificando fila de registros no banco meu_banco.fdb (Ciclo #1)...
+[2026-10-15 08:16:29.842] [DEBUG] [DB-POOL] Verificando fila de registros no banco meu_banco.fdb (Ciclo #2)...
+^C
+[2026-10-15 08:16:32.100] [WARN] Sinal de encerramento recebido (Ctrl+C). Parando servico...
+[2026-10-15 08:16:32.102] [INFO] Thread de trabalho finalizada com sucesso.
+[2026-10-15 08:16:32.105] [INFO] Servico finalizado com sucesso.
+
+Heap dump by heaptrc unit of SyncVendasSvc.exe
+132 memory blocks allocated : 4950/5288
+132 memory blocks freed     : 4950/5288
+0 unfreed memory blocks : 0</code></pre>
+        </div>
+
+        <div class="callout success">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <div>
+            <strong>Auditoria de Memória Perfeita:</strong><br>
+            A auditoria do Free Pascal comprova <strong>0 vazamentos de memória (0 unfreed memory blocks)</strong> mesmo após múltiplos ciclos e encerramento com Ctrl+C.
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: Demos Prontos & Testados -->
+      <section id="demos-section" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Exemplos Práticos</span>
+          <h2 class="section-title">Os 5 Demos Prontos e Compilados</h2>
+          <p class="section-desc">Cada um dos 5 arquétipos disponíveis no Wizard possui um projeto completo na pasta demos/, pré-compilado e testado.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Pasta</th>
+                <th>Nome do Serviço</th>
+                <th>Arquétipo</th>
+                <th>Comportamento Implementado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>demos/01_PoolingBancoDados</code></td>
+                <td><code>SvcPoolBancoDados</code></td>
+                <td><span class="badge-tag">Banco de Dados</span></td>
+                <td>Conexão periódica, tratamento de reconexão e consulta de tabelas de filas/registros.</td>
+              </tr>
+              <tr>
+                <td><code>demos/02_MonitorDiretorio</code></td>
+                <td><code>SvcMonitorDiretorio</code></td>
+                <td><span class="badge-tag">Monitor de Pastas</span></td>
+                <td>Varredura de pasta <code>inbox</code>, teste de arquivos bloqueados (<code>IsFileLocked</code>) e movimentação para processados.</td>
+              </tr>
+              <tr>
+                <td><code>demos/03_ApiMicroservico</code></td>
+                <td><code>SvcApiMicroservico</code></td>
+                <td><span class="badge-tag">API HTTP</span></td>
+                <td>Serviço com listener TCP/HTTP em porta configurável com ciclo de vida limpo no Start/Stop.</td>
+              </tr>
+              <tr>
+                <td><code>demos/04_AgendadorBackup</code></td>
+                <td><code>SvcAgendadorBackup</code></td>
+                <td><span class="badge-tag">Agendador</span></td>
+                <td>Disparo automático em horário diário fixo (ex: <code>02:00:00</code>) para rotinas de backup e manutenção.</td>
+              </tr>
+              <tr>
+                <td><code>demos/05_FilaMensagens</code></td>
+                <td><code>SvcFilaMensagens</code></td>
+                <td><span class="badge-tag">Fila Contínua</span></td>
+                <td>Consumo contínuo de tarefas via fila sincronizada com sinalização <code>TEvent</code> (zero busy-wait).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-window">
+          <div class="code-header">
+            <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+            <span class="code-filename">Terminal — Testando Qualquer Demo Imediatamente</span>
+            <button class="btn-copy">Copiar</button>
+          </div>
+          <pre><code># Testar o Demo 02 (Monitor de Diretório) no Windows:
+cd "d:\Fontes Lazarus\Fabrica de Seriços\Lazarus\demos\02_MonitorDiretorio"
+.\SvcMonitorDiretorio.exe /debug
+
+# Testar o Demo 01 (Pooling de Banco de Dados) no Windows:
+cd "d:\Fontes Lazarus\Fabrica de Seriços\Lazarus\demos\01_PoolingBancoDados"
+.\SvcPoolBancoDados.exe /debug</code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION: WSL Ubuntu no Disco D: -->
+      <section id="wsl-section" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Ambiente Linux</span>
+          <h2 class="section-title">WSL Ubuntu 24.04 LTS Hospedado na Unidade D:</h2>
+          <p class="section-desc">Instalação automatizada com Desktop XFCE, XRDP e suporte completo a Systemd para teste dos serviços Linux.</p>
+        </div>
+
+        <p>
+          Para testar os serviços do tipo Linux com <strong>Systemd</strong> nativo sem comprometer o espaço da unidade <code>C:</code>, criamos um kit de scripts em <code>wsl_setup/</code> (e espelhado em <code>D:\WSL\</code>) que baixa a imagem oficial do Ubuntu e cria o disco virtual <code>ext4.vhdx</code> fisicamente em <strong><code>D:\WSL\Ubuntu\</code></strong>.
+        </p>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-icon indigo">💾</div>
+            <h3 class="card-title">100% na Unidade D:</h3>
+            <p class="card-body">
+              O disco virtual do Linux fica armazenado em <code>D:\WSL\Ubuntu\ext4.vhdx</code>, utilizando os mais de 400 GB livres da sua partição D.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon emerald">🐧</div>
+            <h3 class="card-title">Systemd Nativo Ativo</h3>
+            <p class="card-body">
+              Permite executar <code>systemctl start</code>, <code>systemctl status</code> e testar os scripts <code>instalar.sh</code> e <code>ver_logs.sh</code> diretamente no Linux.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon purple">🖥️</div>
+            <h3 class="card-title">Desktop Remoto (Porta 3390)</h3>
+            <p class="card-body">
+              Ambiente XFCE com XRDP na porta 3390. Abre diretamente na Conexão de Área de Trabalho Remota do Windows (mstsc.exe).
+            </p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">1</div>
+          <div class="step-content">
+            <div class="step-heading">Passo 1: Instalar o Ubuntu na Unidade D:</div>
+            <p>Execute o script <code>wsl_setup\01_Instalar_Ubuntu_Unidade_D.bat</code> (ou <code>D:\WSL\01_Instalar_Ubuntu_Unidade_D.bat</code>). Ele auto-eleva privilégios UAC, ativa os recursos do Windows e importa a imagem para <code>D:\WSL\Ubuntu</code>.</p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">2</div>
+          <div class="step-content">
+            <div class="step-heading">Passo 2: Instalar o Ambiente Desktop</div>
+            <p>Execute <code>wsl_setup\02_Instalar_Desktop_Ubuntu.bat</code> para instalar o XFCE4 e o servidor XRDP com o usuário <code>developer</code> (senha: <code>123456</code>).</p>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-marker">3</div>
+          <div class="step-content">
+            <div class="step-heading">Passo 3: Acessar a Interface Gráfica ou Testar os Serviços</div>
+            <p>
+              • Para abrir o Desktop gráfico no Windows: Execute <code>wsl_setup\03_Abrir_Desktop_Remoto.bat</code>.<br>
+              • Para abrir o terminal Bash no projeto: Execute <code>wsl_setup\04_Abrir_Terminal_Ubuntu.bat</code>.<br>
+              • Para compilar e rodar qualquer um dos 5 demos no Linux: Execute <code>wsl_setup\05_Testar_Servicos_Linux.bat</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: Referência de Arquivos -->
+      <section id="file-ref" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Estrutura</span>
+          <h2 class="section-title">Estrutura de Fontes do Projeto</h2>
+          <p class="section-desc">Mapeamento dos arquivos do Wizard e do projeto gerado.</p>
+        </div>
+
+        <div class="code-window">
+          <div class="code-header">
+            <div class="code-dots"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+            <span class="code-filename">Árvore de Diretórios</span>
+            <button class="btn-copy">Copiar</button>
+          </div>
+          <pre><code>d:\Fontes Lazarus\Fabrica de Seriços\Lazarus\
+├── FabricaServicos.lpi        # Arquivo de projeto do Wizard (Lazarus)
+├── FabricaServicos.lpr        # Programa principal do Wizard
+├── uMainWizard.pas            # Form visual com fluxo de 5 etapas
+├── uMainWizard.lfm            # Layout do formulário do Wizard
+├── uTemplateEngine.pas        # Motor de geração de templates
+├── docs/                      # Pasta com esta documentação técnica em HTML
+│   ├── index.html             # Portal da documentação
+│   ├── style.css              # Design system moderno
+│   └── app.js                 # Comportamento interativo
+└── ProjetosGerados/           # Diretório de saída padrão dos serviços
+    └── MeuServico/            # Projeto de serviço gerado
+        ├── MeuServico.lpi     # Projeto do serviço (FCL/RTL puro)
+        ├── MeuServico.lpr     # Ponto de entrada console
+        ├── uServiceCore.pas   # Núcleo de ciclo de vida (Windows/Linux)
+        ├── uWorker.pas        # Regra de negócio isolada (Thread)
+        ├── uConfig.pas        # Singleton de configuração .ini
+        ├── MeuServico.ini     # Arquivo de configurações padrão
+        ├── MeuServico.service # Unit para Linux Systemd
+        ├── instalar.bat       # Instalador Windows com UAC
+        ├── desinstalar.bat    # Desinstalador Windows
+        ├── instalar.sh        # Instalador Linux
+        ├── remover.sh         # Desinstalador Linux
+        ├── status.sh          # Consulta de status Linux
+        └── ver_logs.sh        # Leitor em tempo real journalctl</code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 9: FAQ -->
+      <section id="faq" class="doc-section">
+        <div class="section-header">
+          <span class="section-tag">Suporte</span>
+          <h2 class="section-title">Perguntas Frequentes (FAQ)</h2>
+          <p class="section-desc">Dúvidas comuns sobre compilação e deploy.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h4 style="font-weight: 700; margin-bottom: 8px;">Por que o executável gerado não depende da LCL?</h4>
+          <p class="card-body">
+            Serviços do Windows (SCM) e daemons do Linux não possuem desktop nem interface gráfica de usuário interativa. Depender de bibliotecas visuais como a LCL adicionaria consumo desnecessário de memória e dependências de servidor X/Wayland no Linux. Nossos serviços usam apenas a FCL e RTL, rodando com máxima leveza e segurança.
+          </p>
+        </div>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h4 style="font-weight: 700; margin-bottom: 8px;">Como compilar o projeto gerado na linha de comando?</h4>
+          <p class="card-body">
+            Basta rodar o utilitário <code>lazbuild</code> apontando para o arquivo <code>.lpi</code> gerado:
+            <br>
+            <code>lazbuild "C:\Servicos\MeuServico\MeuServico.lpi" -B</code>
+          </p>
+        </div>
+
+        <div class="card">
+          <h4 style="font-weight: 700; margin-bottom: 8px;">Como recarregar configurações no Linux sem reiniciar o serviço?</h4>
+          <p class="card-body">
+            Envie o sinal <code>SIGHUP</code> para o processo:
+            <br>
+            <code>sudo systemctl kill -s HUP MeuServico</code> ou <code>sudo pkill -HUP MeuServico</code>
+            <br>
+            O serviço manterá as conexões ativas e atualizará os valores do arquivo <code>.ini</code> instantaneamente.
+          </p>
+        </div>
+      </section>
+
+      <!-- Document Footer -->
+      <footer class="doc-footer">
+        <div>Fábrica de Serviços Cross-Platform • Lazarus & Free Pascal</div>
+        <div>Construído para ambientes de produção de alta disponibilidade</div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[Unit]
+Description=Servico de Pooling e Monitoramento de Banco de Dados
+After=network.target network-online.target firebird.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/SvcPoolBancoDados
+Restart=always
+RestartSec=5s
+User=root
+StandardOutput=journal
+StandardError=journal
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

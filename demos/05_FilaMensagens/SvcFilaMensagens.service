@@ -1,0 +1,17 @@
+[Unit]
+Description=Servico de Fila Continua de Mensagens
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/SvcFilaMensagens
+Restart=always
+RestartSec=5s
+User=root
+StandardOutput=journal
+StandardError=journal
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,885 @@
+object MainWizardForm: TMainWizardForm
+  Left = 280
+  Height = 670
+  Top = 120
+  Width = 940
+  Caption = 'Fábrica de Serviços Windows e Linux - Wizard de Produção'
+  ClientHeight = 670
+  ClientWidth = 940
+  Color = clBtnFace
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -13
+  Font.Name = 'Segoe UI'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
+  object pnlHeader: TPanel
+    Left = 0
+    Height = 62
+    Top = 0
+    Width = 940
+    Align = alTop
+    BevelOuter = bvNone
+    Color = 15328994
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 0
+    object lblTitle: TLabel
+      Left = 18
+      Height = 25
+      Top = 8
+      Width = 478
+      Caption = 'Fábrica de Serviços Cross-Platform - Wizard de Produção'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = 8011277
+      Font.Height = -19
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblSubtitle: TLabel
+      Left = 18
+      Height = 15
+      Top = 36
+      Width = 530
+      Caption = 'Etapa 1 de 5: Identificação do serviço, exibição e plataforma de destino.'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clGray
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object pnlStepsBar: TPanel
+    Left = 0
+    Height = 34
+    Top = 62
+    Width = 940
+    Align = alTop
+    BevelOuter = bvNone
+    Color = 16185078
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 1
+    object lblStepBadge1: TLabel
+      Left = 18
+      Height = 15
+      Top = 9
+      Width = 145
+      Caption = '1. Identificação && Plataforma'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblStepBadge2: TLabel
+      Left = 195
+      Height = 15
+      Top = 9
+      Width = 110
+      Caption = '2. Arquétipo de Tarefa'
+      ParentColor = False
+    end
+    object lblStepBadge3: TLabel
+      Left = 340
+      Height = 15
+      Top = 9
+      Width = 140
+      Caption = '3. Frequência && Parâmetros'
+      ParentColor = False
+    end
+    object lblStepBadge4: TLabel
+      Left = 515
+      Height = 15
+      Top = 9
+      Width = 115
+      Caption = '4. Infraestrutura && OS'
+      ParentColor = False
+    end
+    object lblStepBadge5: TLabel
+      Left = 665
+      Height = 15
+      Top = 9
+      Width = 120
+      Caption = '5. Resumo && Geração'
+      ParentColor = False
+    end
+  end
+  object pgControl: TPageControl
+    Left = 0
+    Height = 522
+    Top = 96
+    Width = 940
+    ActivePage = tabStep1
+    Align = alClient
+    ShowTabs = False
+    TabIndex = 0
+    TabOrder = 2
+    object tabStep1: TTabSheet
+      Caption = 'tabStep1'
+      ClientHeight = 514
+      ClientWidth = 932
+      object grpIdent: TGroupBox
+        Left = 16
+        Height = 220
+        Top = 10
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Identificação do Serviço  '
+        ClientHeight = 197
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        object lblServiceName: TLabel
+          Left = 16
+          Height = 15
+          Top = 10
+          Width = 277
+          Caption = 'Nome do Serviço no SCM/Systemd (sem espaços):'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object edtServiceName: TEdit
+          Left = 16
+          Height = 23
+          Top = 28
+          Width = 320
+          Font.Style = []
+          OnChange = edtServiceNameChange
+          ParentFont = False
+          TabOrder = 0
+          Text = 'SyncVendasSvc'
+        end
+        object lblDisplayName: TLabel
+          Left = 360
+          Height = 15
+          Top = 10
+          Width = 156
+          Caption = 'Nome Amigável de Exibição:'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object edtDisplayName: TEdit
+          Left = 360
+          Height = 23
+          Top = 28
+          Width = 516
+          Anchors = [akTop, akLeft, akRight]
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          Text = 'Serviço de Sincronização de Vendas'
+        end
+        object lblDescription: TLabel
+          Left = 16
+          Height = 15
+          Top = 64
+          Width = 111
+          Caption = 'Descrição do Serviço:'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object edtDescription: TEdit
+          Left = 16
+          Height = 23
+          Top = 82
+          Width = 860
+          Anchors = [akTop, akLeft, akRight]
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+          Text = 'Serviço corporativo cross-platform para sincronização e automação.'
+        end
+      end
+      object grpPlatform: TGroupBox
+        Left = 16
+        Height = 105
+        Top = 238
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Plataforma de Destino  '
+        ClientHeight = 82
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        object rbPlatformHybrid: TRadioButton
+          Left = 16
+          Height = 19
+          Top = 12
+          Width = 475
+          Caption = 'Híbrido Cross-Platform [RECOMENDADO] (Gera fontes e scripts para Windows e Linux)'
+          Checked = True
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          TabStop = True
+        end
+        object rbPlatformWindows: TRadioButton
+          Left = 16
+          Height = 19
+          Top = 36
+          Width = 350
+          Caption = 'Apenas Windows Service (SCM + Scripts de Elevação UAC)'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
+        object rbPlatformLinux: TRadioButton
+          Left = 16
+          Height = 19
+          Top = 58
+          Width = 320
+          Caption = 'Apenas Linux Daemon (Systemd Unit + Scripts Shell)'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+        end
+      end
+      object grpOutputDir: TGroupBox
+        Left = 16
+        Height = 90
+        Top = 350
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Diretório de Destino  '
+        ClientHeight = 67
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+        object lblOutputDir: TLabel
+          Left = 16
+          Height = 15
+          Top = 6
+          Width = 230
+          Caption = 'Pasta onde os arquivos do projeto serão salvos:'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object dirOutputDir: TDirectoryEdit
+          Left = 16
+          Height = 23
+          Top = 26
+          Width = 860
+          ShowHidden = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 0
+          Text = ''
+        end
+      end
+    end
+    object tabStep2: TTabSheet
+      Caption = 'tabStep2'
+      ClientHeight = 514
+      ClientWidth = 932
+      object grpArchetype: TGroupBox
+        Left = 16
+        Height = 480
+        Top = 10
+        Width = 900
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Caption = '  Selecione o Arquétipo de Tarefa do Serviço  '
+        ClientHeight = 457
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        object rbArchDbPool: TRadioButton
+          Left = 18
+          Height = 19
+          Top = 15
+          Width = 370
+          Caption = 'Consulta / Pooling Periódico de Banco de Dados'
+          Checked = True
+          Font.Height = -13
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          TabStop = True
+        end
+        object lblArchDbPoolDesc: TLabel
+          Left = 40
+          Height = 30
+          Top = 36
+          Width = 820
+          Caption = 'Injeta uma Thread de trabalho desacoplada e segura, preparada para TSQLQuery / Conexões (Firebird, PostgreSQL, MySQL),'#10'com tratamento de reconexão e loop sem travamento de CPU.'
+          Font.Color = 4210752
+          Font.Height = -12
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object rbArchDirMonitor: TRadioButton
+          Left = 18
+          Height = 19
+          Top = 95
+          Width = 340
+          Caption = 'Monitor de Diretório / Pastas (Arquivos)'
+          Font.Height = -13
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+        end
+        object lblArchDirMonitorDesc: TLabel
+          Left = 40
+          Height = 30
+          Top = 116
+          Width = 820
+          Caption = 'Varre periodicamente uma pasta de entrada (inbox), testa com segurança se arquivos estão liberados (não bloqueados por cópia)'#10'e os movimenta automaticamente para pastas de processados ou erro.'
+          Font.Color = 4210752
+          Font.Height = -12
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object rbArchHttp: TRadioButton
+          Left = 18
+          Height = 19
+          Top = 175
+          Width = 330
+          Caption = 'API / WebService / Microserviço'
+          Font.Height = -13
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+        end
+        object lblArchHttpDesc: TLabel
+          Left = 40
+          Height = 30
+          Top = 196
+          Width = 820
+          Caption = 'Estrutura esqueleto pronta para escuta HTTP/TCP em porta configurável, iniciando a escuta de requisições no Start'#10'e fechando os sockets de forma limpa no encerramento do serviço.'
+          Font.Color = 4210752
+          Font.Height = -12
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object rbArchScheduler: TRadioButton
+          Left = 18
+          Height = 19
+          Top = 255
+          Width = 320
+          Caption = 'Agendador de Tarefas / Backup Diário'
+          Font.Height = -13
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 3
+        end
+        object lblArchSchedulerDesc: TLabel
+          Left = 40
+          Height = 30
+          Top = 276
+          Width = 820
+          Caption = 'Executa rotinas pesadas em horários fixos diários (ex: 02:00:00), calculando com precisão o tempo restante'#10'e evitando disparos duplicados ou desperdício de processamento.'
+          Font.Color = 4210752
+          Font.Height = -12
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object rbArchQueue: TRadioButton
+          Left = 18
+          Height = 19
+          Top = 335
+          Width = 370
+          Caption = 'Loop Contínuo com Fila de Mensagens / Tarefas'
+          Font.Height = -13
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+        end
+        object lblArchQueueDesc: TLabel
+          Left = 40
+          Height = 30
+          Top = 356
+          Width = 820
+          Caption = 'Consumidor contínuo de tarefas/mensagens apoiado em sinalizador de eventos (TEvent), sem espera ocupada (zero busy-wait),'#10'garantindo resposta em milissegundos a novas tarefas.'
+          Font.Color = 4210752
+          Font.Height = -12
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+      end
+    end
+    object tabStep3: TTabSheet
+      Caption = 'tabStep3'
+      ClientHeight = 514
+      ClientWidth = 932
+      object grpFrequency: TGroupBox
+        Left = 16
+        Height = 140
+        Top = 10
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Frequência e Temporização do Loop  '
+        ClientHeight = 117
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        object lblInterval: TLabel
+          Left = 18
+          Height = 15
+          Top = 18
+          Width = 247
+          Caption = 'Intervalo de Execução entre Ciclos de Trabalho:'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object seInterval: TSpinEdit
+          Left = 18
+          Height = 23
+          Top = 40
+          Width = 140
+          Font.Style = []
+          MaxValue = 86400
+          MinValue = 1
+          ParentFont = False
+          TabOrder = 0
+          Value = 5
+        end
+        object cmbIntervalUnit: TComboBox
+          Left = 170
+          Height = 23
+          Top = 40
+          Width = 160
+          ItemHeight = 15
+          Items.Strings = (
+            'Segundos'
+            'Milissegundos'
+            'Minutos'
+          )
+          Style = csDropDownList
+          TabOrder = 1
+        end
+      end
+      object grpConfigOptions: TGroupBox
+        Left = 16
+        Height = 220
+        Top = 160
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Gerenciamento de Configurações (.ini) e Modo Debug  '
+        ClientHeight = 197
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        object chkUseIni: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 15
+          Width = 550
+          Caption = 'Gerar unit de configuração automática (uConfig.pas) com suporte a arquivo .ini externo'
+          Checked = True
+          Font.Style = [fsBold]
+          OnChange = chkUseIniChange
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 0
+        end
+        object chkSighup: TCheckBox
+          Left = 40
+          Height = 19
+          Top = 48
+          Width = 590
+          Caption = 'Suporte a recarregar configurações em tempo de execução via sinal POSIX SIGHUP no Linux'
+          Checked = True
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 1
+        end
+        object chkDebugMode: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 95
+          Width = 630
+          Caption = 'Ativar modo Console Interativo de Debug (/debug ou -d) com captura segura de Ctrl+C'
+          Checked = True
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 2
+        end
+      end
+    end
+    object tabStep4: TTabSheet
+      Caption = 'tabStep4'
+      ClientHeight = 514
+      ClientWidth = 932
+      object grpFailures: TGroupBox
+        Left = 16
+        Height = 100
+        Top = 10
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Comportamento em Falhas (Auto-Recuperação)  '
+        ClientHeight = 77
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        object chkRestartOnFail: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 12
+          Width = 470
+          Caption = 'Reiniciar automaticamente o serviço em caso de falha (Restart=always)'
+          Checked = True
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 0
+        end
+        object lblRestartDelay: TLabel
+          Left = 40
+          Height = 15
+          Top = 42
+          Width = 200
+          Caption = 'Tempo de espera para reinício (segundos):'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object seRestartDelay: TSpinEdit
+          Left = 250
+          Height = 23
+          Top = 38
+          Width = 90
+          Font.Style = []
+          MaxValue = 3600
+          MinValue = 1
+          ParentFont = False
+          TabOrder = 1
+          Value = 5
+        end
+      end
+      object grpLinuxAndDeps: TGroupBox
+        Left = 16
+        Height = 180
+        Top = 120
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Usuário Linux e Dependências de Inicialização  '
+        ClientHeight = 157
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        object lblLinuxUser: TLabel
+          Left = 18
+          Height = 15
+          Top = 12
+          Width = 145
+          Caption = 'Usuário de Execução Linux:'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object edtLinuxUser: TEdit
+          Left = 175
+          Height = 23
+          Top = 8
+          Width = 160
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          Text = 'root'
+        end
+        object chkWaitNetwork: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 48
+          Width = 520
+          Caption = 'Aguardar rede ativa antes de subir (network-online.target no Linux / Tcpip no Windows)'
+          Checked = True
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 1
+        end
+        object chkWaitDatabase: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 80
+          Width = 350
+          Caption = 'Aguardar serviço de Banco de Dados estar pronto antes:'
+          Font.Style = []
+          OnChange = chkWaitDatabaseChange
+          ParentFont = False
+          TabOrder = 2
+        end
+        object cmbDatabaseType: TComboBox
+          Left = 380
+          Height = 23
+          Top = 78
+          Width = 280
+          Enabled = False
+          ItemHeight = 15
+          Items.Strings = (
+            'Firebird (firebird.service)'
+            'PostgreSQL (postgresql.service)'
+            'MySQL / MariaDB (mysql.service)'
+          )
+          Style = csDropDownList
+          TabOrder = 3
+        end
+      end
+      object grpLogging: TGroupBox
+        Left = 16
+        Height = 170
+        Top = 310
+        Width = 900
+        Anchors = [akTop, akLeft, akRight]
+        Caption = '  Logs e Diagnósticos  '
+        ClientHeight = 147
+        ClientWidth = 896
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+        object chkLogFile: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 12
+          Width = 380
+          Caption = 'Gravar em arquivo local rotativo diário (.log) com timestamps'
+          Checked = True
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 0
+        end
+        object chkLogJournal: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 42
+          Width = 430
+          Caption = 'Redirecionar saída para o Systemd Journal (visível via journalctl)'
+          Checked = True
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 1
+        end
+        object chkLogEventLog: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 72
+          Width = 320
+          Caption = 'Registrar eventos no Windows EventLog'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+        end
+        object chkHeapTrc: TCheckBox
+          Left = 18
+          Height = 19
+          Top = 102
+          Width = 530
+          Caption = 'Ativar HeapTrc (-gh) para rastrear vazamentos de memória em depuração no FPC'
+          Checked = True
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 3
+        end
+      end
+    end
+    object tabStep5: TTabSheet
+      Caption = 'tabStep5'
+      ClientHeight = 514
+      ClientWidth = 932
+      object pnlSummary: TPanel
+        Left = 10
+        Height = 135
+        Top = 8
+        Width = 912
+        Align = alTop
+        BorderSpacing.Around = 8
+        BevelOuter = bvNone
+        ClientHeight = 135
+        ClientWidth = 912
+        TabOrder = 0
+        object mmoSummary: TMemo
+          Left = 0
+          Height = 135
+          Top = 0
+          Width = 912
+          Align = alClient
+          Color = 16382457
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -12
+          Font.Name = 'Consolas'
+          Font.Pitch = fpFixed
+          Font.Quality = fqDraft
+          ParentFont = False
+          ReadOnly = True
+          ScrollBars = ssVertical
+          TabOrder = 0
+        end
+      end
+      object pnlPreviewTop: TPanel
+        Left = 10
+        Height = 40
+        Top = 151
+        Width = 912
+        Align = alTop
+        BorderSpacing.Left = 8
+        BorderSpacing.Right = 8
+        BevelOuter = bvNone
+        ClientHeight = 40
+        ClientWidth = 912
+        TabOrder = 1
+        object lblPreviewFile: TLabel
+          Left = 8
+          Height = 15
+          Top = 12
+          Width = 140
+          Caption = 'Pré-visualizar Arquivo:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object cmbPreviewFile: TComboBox
+          Left = 160
+          Height = 23
+          Top = 8
+          Width = 320
+          ItemHeight = 15
+          Items.Strings = (
+            'Programa Principal (.lpr)'
+            'Núcleo de Ciclo de Vida (uServiceCore.pas)'
+            'Módulo de Trabalho (uWorker.pas)'
+            'Gerenciador de Configuração (uConfig.pas)'
+            'Arquivo de Configuração (.ini)'
+            'Unit Systemd Linux (.service)'
+            'Script de Instalação Windows (.bat)'
+            'Script de Instalação Linux (.sh)'
+          )
+          OnChange = cmbPreviewFileChange
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object btnRefreshPreview: TButton
+          Left = 490
+          Height = 25
+          Top = 7
+          Width = 140
+          Caption = 'Atualizar Código'
+          OnClick = btnRefreshPreviewClick
+          TabOrder = 1
+        end
+      end
+      object mmoPreview: TMemo
+        Left = 10
+        Height = 315
+        Top = 191
+        Width = 912
+        Align = alClient
+        BorderSpacing.Around = 8
+        Color = 1973790
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -12
+        Font.Name = 'Consolas'
+        Font.Pitch = fpFixed
+        Font.Quality = fqDraft
+        ParentFont = False
+        ReadOnly = True
+        ScrollBars = ssBoth
+        TabOrder = 2
+        WordWrap = False
+      end
+    end
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 52
+    Top = 618
+    Width = 940
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 52
+    ClientWidth = 940
+    TabOrder = 3
+    object btnCancel: TButton
+      Left = 16
+      Height = 36
+      Top = 8
+      Width = 100
+      Caption = 'Cancelar'
+      OnClick = btnCancelClick
+      TabOrder = 0
+    end
+    object lblValidationMsg: TLabel
+      Left = 130
+      Height = 15
+      Top = 18
+      Width = 430
+      Anchors = [akTop, akLeft, akRight]
+      Caption = ''
+      Font.Color = clRed
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object btnBack: TButton
+      Left = 580
+      Height = 36
+      Top = 8
+      Width = 110
+      Anchors = [akTop, akRight]
+      Caption = '<< Voltar'
+      OnClick = btnBackClick
+      TabOrder = 1
+    end
+    object btnNext: TButton
+      Left = 700
+      Height = 36
+      Top = 8
+      Width = 110
+      Anchors = [akTop, akRight]
+      Caption = 'Avançar >>'
+      Font.Style = [fsBold]
+      OnClick = btnNextClick
+      ParentFont = False
+      TabOrder = 2
+    end
+    object btnFinish: TButton
+      Left = 700
+      Height = 36
+      Top = 8
+      Width = 220
+      Anchors = [akTop, akRight]
+      Caption = 'Gerar e Abrir Pasta'
+      Color = 4227072
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Style = [fsBold]
+      OnClick = btnFinishClick
+      ParentFont = False
+      TabOrder = 3
+      Visible = False
+    end
+  end
+end
